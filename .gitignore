@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/PostmatesSDK/bin/Release
+/PostmatesSDK/obj
+/SDKUnitTest/bin
+/SDKUnitTest/obj

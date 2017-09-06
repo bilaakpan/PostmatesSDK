@@ -1,0 +1,70 @@
+{
+	"kind": "delivery",
+	"id": "del_3vDjjkd21b",
+	"created": "2014-08-26T10:04:03Z",
+	"updated": "2014-08-26T11:21:16Z",
+	"status": "pickup",
+	"complete": false,
+	"pickup_eta": "2014-08-26T10:16:00Z",
+	"dropoff_eta": "2014-08-26T10:29:00Z",
+	"dropoff_deadline": "2014-08-26T10:45:00Z",
+	"quote_id": "dqt_qUdje83jhdk",
+	"fee": 799,
+	"currency": "usd",
+	"manifest": {
+		"reference": "SP 937-215",
+		"description": "10kg cardboard box"
+	},
+	"dropoff_identifier": "Picard",
+	"pickup": {
+		"name": "The Warehouse",
+		"phone_number": "5558675309",
+		"address": "20 McAllister St, San Francisco, CA 94102",
+		"detailed_address": {
+			"street_address_1": "20 McAllister St",
+			"street_address_2": "",
+			"city": "San Francisco",
+			"state": "CA",
+			"zip_code": "94102",
+			"country": "US"
+		},
+		"notes": "Invoice #123",
+		"location": {
+			"lat": 37.781116,
+			"lng": -122.412339
+		}
+	},
+	"dropoff": {
+		"name": "Alice Customer",
+		"phone_number": "4155555555",
+		"address": "101 Market St, San Francisco, CA 94105",
+		"detailed_address": {
+			"street_address_1": "101 Market St",
+			"street_address_2": "",
+			"city": "San Francisco",
+			"state": "CA",
+			"zip_code": "94105",
+			"country": "US"
+		},
+		"notes": "Ring the bell, meow loudly.",
+		"location": {
+			"lat": 37.793274,
+			"lng": -122.395934
+		}
+	},
+	"courier": {
+		"name": "Robo Courier",
+		"rating": "5.0",
+		"vehicle_type": "bicycle",
+		"phone_number": "+14151234567",
+		"location": {
+			"lat": 37.42291810,
+			"lng": -122.08542120
+		},
+		"img_href": "https://images.postmates.com/06c9a53c-f89f-4eac-8861-60e34039d9ea/121.jpg"
+	},
+	"related_deliveries": [{
+		"id": "del_9A3jsld89s",
+		"relationship": "original"
+	}]
+}

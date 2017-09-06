@@ -1,0 +1,66 @@
+﻿{
+  "kind": "event.delivery_status",
+  "id": "evt_KC9LLdlTwr7udF",
+  "delivery_id": "del_3vDjjkd21b",
+  "status": "pickup",
+  "data": {
+    "status": "delivered",
+    "dropoff": {
+      "phone_number": "646-413-1271",
+      "name": "Mager's Old House",
+      "notes": "",
+      "detailed_address": {
+        "city": "San Francisco",
+        "country": "US",
+        "street_address_1": "690 5th Street",
+        "street_address_2": "",
+        "state": "CA",
+        "zip_code": "94107"
+      },
+      "location": {
+        "lat": 37.7753293,
+        "lng": -122.3976532
+      },
+      "address": "690 5th Street"
+    },
+    "updated": "2017-08-16T05:36:16Z",
+    "fee": 1325,
+    "quote_id": "dqt_LOEOHxEG9-EqeV",
+    "complete": true,
+    "courier": null,
+    "created": "2017-08-16T05:34:03Z",
+    "tip": null,
+    "kind": "delivery",
+    "manifest": {
+      "description": "A good book"
+    },
+    "currency": "usd",
+    "pickup": {
+      "phone_number": "646-413-1271",
+      "name": "Postmates office",
+      "notes": "",
+      "detailed_address": {
+        "city": "San Francisco",
+        "country": "US",
+        "street_address_1": "2363 Van Ness Avenue",
+        "street_address_2": "",
+        "state": "CA",
+        "zip_code": "94109"
+      },
+      "location": {
+        "lat": 37.7974109,
+        "lng": -122.424145
+      },
+      "address": "2363 Van Ness Avenue"
+    },
+    "dropoff_identifier": "",
+    "dropoff_deadline": "2017-08-16T06:09:03Z",
+    "live_mode": false,
+    "related_deliveries": [],
+    "pickup_eta": null,
+    "dropoff_eta": null,
+    "id": "del_LOEOHt3oTjl46V"
+  },
+  "created": "2014-08-26T10:04:03Z",
+  "live_mode": true
+}
