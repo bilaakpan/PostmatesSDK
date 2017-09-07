@@ -71,14 +71,14 @@ namespace PostmatesSDK
                 throw new ArgumentNullException(nameof(dropoffAddress));
             }
 
-            var quoteResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/delivery_quotes",
+            using (var quoteResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/delivery_quotes",
                 new FormUrlEncodedContent(new[] {
                     new KeyValuePair<string, string>("pickup_address", $"{pickupAddress.StreetNumber},{pickupAddress.City},{pickupAddress.State}"),
                     new KeyValuePair<string, string>("dropoff_address", $"{dropoffAddress.StreetNumber},{dropoffAddress.City},{dropoffAddress.State}")
-                })).ConfigureAwait(false);
-            
-            return await GetResponseAsync<DeliveryQuote>(quoteResponse, ResponseKinds.delivery_quote).ConfigureAwait(false);
+                })).ConfigureAwait(false)) {
 
+                return await GetResponseAsync<DeliveryQuote>(quoteResponse, ResponseKinds.delivery_quote).ConfigureAwait(false);
+            }
         }
         /// <summary>
         /// Coordinates will be in the format [longitude, latitude].
@@ -90,21 +90,22 @@ namespace PostmatesSDK
             var response = new Response();
             var contentString = "";
 
-            var zoneResponse = await _httpClient.GetAsync("/v1/delivery_zones").ConfigureAwait(false);
+            using (var zoneResponse = await _httpClient.GetAsync("/v1/delivery_zones").ConfigureAwait(false)) {
 
-            try {
+                try {
 
-                contentString = await zoneResponse?.Content.ReadAsStringAsync();
-                zoneResponse.EnsureSuccessStatusCode();
-                response._response = new DeliveryZoneCollection {
-                    DeliveryZones =
-                    Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<DeliveryZone>>(contentString)
-                }; ;
-                response.Kind = ResponseKinds.delivery_zones;
-            }
-            catch (Exception ex) {
-                response._response = GetErrorResponse(contentString, zoneResponse.StatusCode, ex);
-                response.Kind = ResponseKinds.error;
+                    contentString = await zoneResponse?.Content.ReadAsStringAsync();
+                    zoneResponse.EnsureSuccessStatusCode();
+                    response._response = new DeliveryZoneCollection {
+                        DeliveryZones =
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<DeliveryZone>>(contentString)
+                    }; ;
+                    response.Kind = ResponseKinds.delivery_zones;
+                }
+                catch (Exception ex) {
+                    response._response = GetErrorResponse(contentString, zoneResponse.StatusCode, ex);
+                    response.Kind = ResponseKinds.error;
+                }
             }
             return response;
         }
@@ -121,7 +122,7 @@ namespace PostmatesSDK
 
             createDelivery.Validate();
 
-            var deliveryResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/deliveries",
+            using (var deliveryResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/deliveries",
                new FormUrlEncodedContent(new[] {
                     new KeyValuePair<string, string>("pickup_address", $"{createDelivery.PickupAddress.StreetNumber},{createDelivery.PickupAddress.City},{createDelivery.PickupAddress.State}"),
                     new KeyValuePair<string, string>("dropoff_address", $"{createDelivery.DropoffAddress.StreetNumber},{createDelivery.DropoffAddress.City},{createDelivery.DropoffAddress.State}"),
@@ -136,9 +137,10 @@ namespace PostmatesSDK
                     new KeyValuePair<string, string>("dropoff_phone_number",createDelivery.DropoffPhoneNumber),
                     new KeyValuePair<string, string>("dropoff_business_name",createDelivery.DropoffBusinessName),
                     new KeyValuePair<string, string>("dropoff_notes",createDelivery.DropoffNotes)
-               })).ConfigureAwait(false);
+               })).ConfigureAwait(false)) {
 
-            return await GetResponseAsync<Delivery>(deliveryResponse, ResponseKinds.delivery).ConfigureAwait(false);
+                return await GetResponseAsync<Delivery>(deliveryResponse, ResponseKinds.delivery).ConfigureAwait(false);
+            }
         }
         /// <summary>
         /// List all deliveries for a customer.
@@ -146,11 +148,12 @@ namespace PostmatesSDK
         /// <param name="filter">This filter limits the results to only deliveries that are currently being delivered. pass null for no filter</param>
         /// <param name="next_href">path to next page</param>
         /// <returns></returns>
-        public async Task<IResponse> GetDeliveryListAsync(string filter= "ongoing", string next_href=null)
+        public async Task<IResponse> GetDeliveryListAsync(string filter = "ongoing", string next_href = null)
         {
             var uriPath = next_href ?? $"/v1/customers/{_customer_Id}/deliveries?filter=" + filter ?? "";
-            var deliveryList = await _httpClient.GetAsync(uriPath).ConfigureAwait(false);
-            return await GetResponseAsync<DeliveryCollection>(deliveryList, ResponseKinds.delivery_list).ConfigureAwait(false);
+            using (var deliveryList = await _httpClient.GetAsync(uriPath).ConfigureAwait(false)) {
+                return await GetResponseAsync<DeliveryCollection>(deliveryList, ResponseKinds.delivery_list).ConfigureAwait(false);
+            }
         }
         /// <summary>
         /// Retrieve updated details about a delivery.
@@ -163,8 +166,9 @@ namespace PostmatesSDK
                 throw new ArgumentException("Can't be null or empty", nameof(deliveryId));
             }
 
-            var delivery = await _httpClient.GetAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}").ConfigureAwait(false);
-            return await GetResponseAsync<Delivery>(delivery, ResponseKinds.delivery).ConfigureAwait(false);
+            using (var delivery = await _httpClient.GetAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}").ConfigureAwait(false)) {
+                return await GetResponseAsync<Delivery>(delivery, ResponseKinds.delivery).ConfigureAwait(false);
+            }
         }
         /// <summary>
         /// Cancel an ongoing delivery. A delivery can only be canceled prior to a courier completing pickup. Delivery fees still apply.
@@ -177,8 +181,9 @@ namespace PostmatesSDK
                 throw new ArgumentException("Can't be null or empty", nameof(deliveryId));
             }
 
-            var delivery = await _httpClient.GetAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}/cancel").ConfigureAwait(false);
-            return await GetResponseAsync<Delivery>(delivery, ResponseKinds.delivery).ConfigureAwait(false);
+            using (var delivery = await _httpClient.GetAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}/cancel").ConfigureAwait(false)) {
+                return await GetResponseAsync<Delivery>(delivery, ResponseKinds.delivery).ConfigureAwait(false);
+            }
         }
         /// <summary>
         /// After an order has completed, you can add a tip for the courier for up to 7 days.
@@ -186,7 +191,8 @@ namespace PostmatesSDK
         /// <param name="deliveryId"></param>
         /// <param name="tip">Amount in cents that will be paid to the courier as a tip.</param>
         /// <returns></returns>
-        public async Task<IResponse> AddTipAsync(string deliveryId, int tip) {
+        public async Task<IResponse> AddTipAsync(string deliveryId, int tip)
+        {
             if (string.IsNullOrEmpty(deliveryId)) {
                 throw new ArgumentException("message", nameof(deliveryId));
             }
@@ -195,12 +201,13 @@ namespace PostmatesSDK
                 throw new ArgumentOutOfRangeException(nameof(tip), tip, "must be grater than 0.");
             }
 
-            var quoteResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}",
-                new FormUrlEncodedContent(new[] {
+            using (var quoteResponse = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}",
+                  new FormUrlEncodedContent(new[] {
                     new KeyValuePair<string, string>("tip_by_customer", tip.ToString())
-                })).ConfigureAwait(false);
+                  })).ConfigureAwait(false)) {
 
-            return await GetResponseAsync<Delivery>(quoteResponse, ResponseKinds.delivery).ConfigureAwait(false);
+                return await GetResponseAsync<Delivery>(quoteResponse, ResponseKinds.delivery).ConfigureAwait(false);
+            }
         }
         private ErrorResponse GetErrorResponse(string contentString, HttpStatusCode httpStatussCode, Exception exception)
         {
