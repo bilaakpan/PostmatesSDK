@@ -181,7 +181,7 @@ namespace PostmatesSDK
                 throw new ArgumentException("Can't be null or empty", nameof(deliveryId));
             }
 
-            using (var delivery = await _httpClient.GetAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}/cancel").ConfigureAwait(false)) {
+            using (var delivery = await _httpClient.PostAsync($"/v1/customers/{_customer_Id}/deliveries/{deliveryId}/cancel",null).ConfigureAwait(false)) {
                 return await GetResponseAsync<Delivery>(delivery, ResponseKinds.delivery).ConfigureAwait(false);
             }
         }
