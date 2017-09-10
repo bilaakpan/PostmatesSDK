@@ -169,7 +169,12 @@ namespace SDKUnitTest
             var requst = new CreateDelivery {
                 QuoteId = "ssdfsgkfgf",
                 PickupAddress = new Address { StreetNumber = "20 McAllister St", City = "San Francisco", State = "CA" },
-                DropoffAddress = new Address { StreetNumber = "201 Market St", City = "San Francisco", State = "CA" }
+                DropoffAddress = new Address { StreetNumber = "201 Market St", City = "San Francisco", State = "CA" },
+                PickupName = "PickUpName",
+                DropoffName = "DropoffName",
+                Manifest = "Manifest",
+                PickupPhoneNumber = "111-111-1111",
+                DropoffPhoneNumber = "111-111-1111"
             };
 
             var response = client.CreateDeliveryAsync(requst).Result;
@@ -195,9 +200,13 @@ namespace SDKUnitTest
 
             var client = new PostmatesClient("clientID", "username", handler);
             var requst = new CreateDelivery {
-                QuoteId = "ssdfsgkfgf",
                 PickupAddress = new Address { StreetNumber = "20 McAllister St", City = "San Francisco", State = "CA" },
-                DropoffAddress = new Address { StreetNumber = "201 Market St", City = "San Francisco", State = "CA" }
+                DropoffAddress = new Address { StreetNumber = "201 Market St", City = "San Francisco", State = "CA" },
+                PickupName = "PickUpName",
+                DropoffName = "DropoffName",
+                Manifest = "Manifest",
+                PickupPhoneNumber = "111-111-1111",
+                DropoffPhoneNumber = "111-111-1111"
             };
 
 
