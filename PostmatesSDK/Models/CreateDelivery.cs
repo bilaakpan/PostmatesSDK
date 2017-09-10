@@ -69,7 +69,11 @@ namespace PostmatesSDK.Models
 
         internal void Validate()
         {
-            ThrowIfNullOrEmpty(QuoteId, nameof(QuoteId));
+            ThrowIfNullOrEmpty(PickupName, nameof(PickupName));
+            ThrowIfNullOrEmpty(DropoffName, nameof(DropoffName));
+            ThrowIfNullOrEmpty(Manifest, nameof(Manifest));
+            ThrowIfNullOrEmpty(PickupPhoneNumber, nameof(PickupPhoneNumber));
+            ThrowIfNullOrEmpty(DropoffPhoneNumber, nameof(DropoffPhoneNumber));
             ThrowIfNullOrEmpty(DropoffAddress, nameof(DropoffAddress));
             ThrowIfNullOrEmpty(PickupAddress, nameof(PickupAddress));
         }
