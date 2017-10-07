@@ -9,3 +9,4 @@
 /SDKUnitTest/obj
 /PostmatesSDK/bin/Debug/netstandard1.2
 *.user
+/PostmatesSDK/bin/Debug
